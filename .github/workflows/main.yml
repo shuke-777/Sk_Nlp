@@ -24,7 +24,7 @@ jobs:
       # 3️⃣ 连接服务器，构建并部署 Docker 镜像
       - name: Build & Deploy on Server
         run: |
-          ssh -o StrictHostKeyChecking=no yyy@120.46.72.45 << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@120.46.72.45 << 'EOF'
             cd /nlplearn
             git pull origin main
             docker build -t myapp:latest .
