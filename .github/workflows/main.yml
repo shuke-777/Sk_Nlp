@@ -1,6 +1,5 @@
 name: CI/CD Docker Deploy
 
-# 触发条件：push 到 main 分支时
 on:
   push:
     branches:
@@ -8,20 +7,17 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest  # 推荐使用 ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ 拉取代码
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ 设置 SSH
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # 3️⃣ 连接服务器，构建并部署 Docker 镜像
       - name: Build & Deploy on Server
         run: |
           ssh -o StrictHostKeyChecking=no root@120.46.72.45 << 'EOF'
