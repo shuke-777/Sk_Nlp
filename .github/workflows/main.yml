@@ -24,10 +24,10 @@ jobs:
       - name: Build & Deploy on Server
         run: |
           ssh -o StrictHostKeyChecking=no root@120.46.72.45 << 'EOF'
-cd /nlplearn
-git pull origin main
-docker build -t myapp:latest .
-docker stop myapp-service || true
-docker rm myapp-service || true
-docker run -d --name myapp-service -p 8000:8000 myapp:latest
-EOF
+          cd /nlplearn
+          git pull origin main
+          docker build -t myapp:latest .
+          docker stop myapp-service || true
+          docker rm myapp-service || true
+          docker run -d --name myapp-service -p 8000:8000 myapp:latest
+          EOF
