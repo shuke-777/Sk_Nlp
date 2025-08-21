@@ -1,34 +1,16 @@
-name: CI/CD Docker Deploy
+name: Test Workflow
 
 on:
   push:
     branches:
-      - main  # 只在 main 分支 push 时触发
+      - main
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-20.04
-
-
+  test-job:
+    runs-on: ubuntu-latest
     steps:
-      # 1️⃣ 拉取代码
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ 设置 SSH
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # 3️⃣ 连接服务器，构建并部署 Docker 镜像
-      - name: Build & Deploy on Server
-        run: |
-          ssh -o StrictHostKeyChecking=no root@120.46.72.45 << 'EOF'
-            cd /nlplearn
-            git pull origin main
-            docker build -t myapp:latest .
-            docker stop myapp-service || true
-            docker rm myapp-service || true
-            docker run -d --name myapp-service -p 8000:8000 myapp:latest
-          EOF
+      - name: Echo hello
+        run: echo "Hello GitHub Actions!"
