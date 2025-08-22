@@ -1,4 +1,5 @@
 from langchain.agents import initialize_agent,AgentType
+#from langgraph.prebuilt import create_react_agent
 from app.agent_tools import *
 from langchain_openai import ChatOpenAI
 from app.faiss_store import *
@@ -18,7 +19,16 @@ agent = initialize_agent(
     verbose=True,
     handle_parsing_errors=True
 )
-query='糖尿病还会进行遗传吗？'
-response = agent.invoke(query)
-print(response)
-
+# query='糖尿病还会进行遗传吗？'
+# response = agent.invoke(query)
+# print(response)
+#agent = create_react_agent(model,tools)
+while True:
+    query = input('请输入你的问题:')
+    if query.lower() in ['exit','quit']:
+        print('退出程序')
+        break
+    response = agent.invoke(query)
+    #response = agent.invoke({"messages": [("user", query)]})
+    print('回答:',response)
+    print('-'*50)
